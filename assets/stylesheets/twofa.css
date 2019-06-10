@@ -1,0 +1,11 @@
+#login-form input#twofa_code {
+  width: 100%;
+  height: auto;
+}
+
+#login-form h3 {text-align: center;}
+
+input#twofa_code, img#twofa_code { width: 140px; }
+ul.twofa_backup_codes { list-style-type: none; padding: 0; display: inline-block; }
+ul.twofa_backup_codes li { float: left; }
+ul.twofa_backup_codes li:nth-child(odd) { float: left; clear: left; padding-right: 4em; }

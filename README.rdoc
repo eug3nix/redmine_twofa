@@ -1,0 +1,10 @@
+redmine_twofa
+This plugin adds two-factor authentication support to Redmine 3.x
+
+The code is based on the original work by Felix Schäfer. https://www.redmine.org/issues/1237
+
+Installation Notes
+Use git to clone to plugins
+Run plugin migrations
+Reload the redmine server.
+The new Authentication options can be found on Adminstration->Settings->Authentication, My Account and User profile screens.
