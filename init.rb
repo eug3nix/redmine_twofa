@@ -7,12 +7,6 @@ Redmine::Plugin.register :redmine_twofa do
   version '0.1.0'
   author_url 'https://www.commandprompt.com'
   requires_redmine :version_or_higher => '3.0.x'
-
-  settings default: {
-    'twofa': 1,
-    'security_notifications': 1
-  }
-
 end
 
 prepare_block = Proc.new do
