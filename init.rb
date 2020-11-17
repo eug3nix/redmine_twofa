@@ -18,7 +18,7 @@ prepare_block = Proc.new do
 end
 
 if Rails.env.development?
-  ActionDispatch::Reloader.to_prepare { prepare_block.call }
+  ((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare { prepare_block.call }
 else
   prepare_block.call
 end
