@@ -34,7 +34,7 @@ module Redmine
       end
 
       def deliver_twofa_paired
-        Mailer.security_notification(
+        custom_security_notification(
           @user,
           {
             title: :label_my_account,
@@ -62,7 +62,7 @@ module Redmine
       end
 
       def deliver_twofa_unpaired
-        Mailer.security_notification(
+        custom_security_notification(
           @user,
           {
             title: :label_my_account,
@@ -93,7 +93,7 @@ module Redmine
         Token.where(user_id: @user.id).find_token('twofa_backup_code', code).try(:delete)
         # make sure the user using the backup code is the same it's been issued to
         return false unless (@user.present? && @user == user_from_code)
-        Mailer.security_notification(
+        custom_security_notification(
           @user,
           {
             originator: @user,
@@ -113,7 +113,7 @@ module Redmine
           token.update_columns value: Redmine::Utils.random_hex(6)
           tokens << token
         end
-        Mailer.security_notification(
+        custom_security_notification(
           @user,
           {
             title: :label_my_account,
@@ -138,6 +138,14 @@ module Redmine
           scheme_name: scheme_name,
           resendable: false
         }
+      end
+
+      def custom_security_notification(user, message)
+        if Redmine::VERSION::MAJOR == 4
+          Mailer.security_notification(user, User.current, message)
+        else
+          Mailer.security_notification(user, message)
+        end
       end
 
       private
