@@ -4,8 +4,11 @@ module RedmineTwofa
     def self.included(base)
       base.send(:include, InstanceMethods)
       base.class_eval do
+        helper TwofaHelper
         before_action :check_twofa_activation
-        alias_method_chain :start_user_session, :twofa
+        # alias_method_chain :start_user_session, :twofa
+        alias_method :start_user_session_without_twofa, :start_user_session
+        alias_method :start_user_session, :start_user_session_with_twofa
       end
     end
 
